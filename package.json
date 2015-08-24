@@ -1,0 +1,24 @@
+{
+  "name": "playing",
+  "version": "1.0.0",
+  "description": "Send what you're playing in itunes to Hipchat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uiureo/playing.git"
+  },
+  "author": "Kazato Sugimoto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uiureo/playing/issues"
+  },
+  "homepage": "https://github.com/uiureo/playing#readme",
+  "dependencies": {
+    "hipchatter": "^0.2.0",
+    "playback": "^0.2.0"
+  }
+}
