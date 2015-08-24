@@ -1,5 +1,7 @@
 # playing
-Send what you're playing in iTunes to Hipchat.
+[![Build Status](https://travis-ci.org/uiureo/playing.svg)](https://travis-ci.org/uiureo/playing)
+
+Send what you're playing on iTunes to Hipchat.
 
 ```sh
 npm install
