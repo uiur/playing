@@ -70,16 +70,19 @@ function notify (track, music) {
     postToHipchat(messageForHipchat(track, music))
   }
 
-  if (process.env.SLACK_TOKEN) {
+  if (process.env.SLACK_WEBHOOK_URL) {
     postToSlack(messageForSlack(track, music))
   }
 }
 
 function postToSlack (message) {
-  var token = process.env.SLACK_TOKEN
+  var webhookUrl = process.env.SLACK_WEBHOOK_URL
 
-  return fetch('https://slack.com/api/chat.postMessage?token=' + token + '&channel=%23random&text=' + encodeURIComponent(message) + '&as_user=true&unfurl_links=false&unfurl_media=false&pretty=1', {
-    method: 'post'
+  return fetch(webhookUrl, {
+    method: 'post',
+    body: JSON.stringify({
+      text: message
+    })
   })
 }
 

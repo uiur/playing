@@ -15,6 +15,6 @@ mb.on('ready', function ready () {
 })
 
 function update (state) {
-  process.env.SLACK_TOKEN = state.slack
+  process.env.SLACK_WEBHOOK_URL = state.slack
   run.disabled = !state.checked
 }
