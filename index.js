@@ -8,31 +8,25 @@ var detectCountry = require('./lib/detect-country.js')
 
 var fetch = require('isomorphic-fetch')
 
-if (!(process.env.SLACK_TOKEN || process.env.HIPCHAT_TOKEN)) {
-  console.error('`SLACK_TOKEN` or `HIPCHAT_TOKEN` is required.\n')
-  console.error('Usage:\n  HIPCHAT_TOKEN=token HIPCHAT_ROOM=room_id npm start\n  SLACK_TOKEN=token npm start')
+module.exports = function run () {
+  var prevTrack = {}
+  itunes.on('playing', function (track) {
+    if (run.disabled) return
+    if (isEqualTrack(track, prevTrack)) return
 
-  process.exit(1)
-}
-
-var hipchat = new Hipchat(process.env.HIPCHAT_TOKEN)
-
-var prevTrack = {}
-itunes.on('playing', function (track) {
-  if (isEqualTrack(track, prevTrack)) return
-
-  detectCountry().then(function (country) {
-    findMusic([ track.name, track.artist, track.album ], {
-      country: country
-    }).then(function (music) {
-      notify(track, music)
-    }).catch(function (err) {
-      console.error(err.stack)
+    detectCountry().then(function (country) {
+      findMusic([ track.name, track.artist, track.album ], {
+        country: country
+      }).then(function (music) {
+        notify(track, music)
+      }).catch(function (err) {
+        console.error(err.stack)
+      })
     })
-  })
 
-  prevTrack = track
-})
+    prevTrack = track
+  })
+}
 
 function isEqualTrack (a, b) {
   if (!(typeof a === 'object' && typeof b === 'object')) return
@@ -90,6 +84,8 @@ function postToSlack (message) {
 }
 
 function postToHipchat (message) {
+  var hipchat = new Hipchat(process.env.HIPCHAT_TOKEN)
+
   hipchat.notify(process.env.HIPCHAT_ROOM, {
     message: message,
     notify: true
