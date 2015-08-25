@@ -20,13 +20,26 @@ itunes.on('playing', function (data) {
     findMusic([ data.name, data.artist, data.album ], {
       country: country
     }).then(function (music) {
+      console.log('🎵  ' + trackToString(data))
+
+      if (!music) {
+        notify('🎵  ' + trackToString(data))
+        return
+      }
+
       notify(
         '🎵  ' +
-        '<a href="' + music.trackViewUrl + '">' + data.name + ' - ' + data.artist + '</a>'
+        '<a href="' + music.trackViewUrl + '">' + trackToString(data) + '</a>'
       )
+    }).catch(function (err) {
+      console.error(err.stack)
     })
   })
 })
+
+function trackToString (track) {
+  return track.name + ' - ' + track.artist
+}
 
 function notify (message) {
   hipchat.notify(process.env.HIPCHAT_ROOM, {
