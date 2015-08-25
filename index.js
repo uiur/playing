@@ -17,7 +17,10 @@ if (!(process.env.SLACK_TOKEN || process.env.HIPCHAT_TOKEN)) {
 
 var hipchat = new Hipchat(process.env.HIPCHAT_TOKEN)
 
+var prevTrack = {}
 itunes.on('playing', function (track) {
+  if (isEqualTrack(track, prevTrack)) return
+
   detectCountry().then(function (country) {
     findMusic([ track.name, track.artist, track.album ], {
       country: country
@@ -27,7 +30,15 @@ itunes.on('playing', function (track) {
       console.error(err.stack)
     })
   })
+
+  prevTrack = track
 })
+
+function isEqualTrack (a, b) {
+  if (!(typeof a === 'object' && typeof b === 'object')) return
+
+  return a.name === b.name && a.artist === b.artist
+}
 
 function trackToString (track) {
   return track.name + ' - ' + track.artist
