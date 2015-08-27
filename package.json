@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "standard",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "electron-packager ./ playing --out build/ --platform=darwin --arch=x64 --version=0.30.6 --overwrite --prune"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "react": "^0.13.3"
   },
   "devDependencies": {
+    "electron-packager": "^5.0.2",
     "standard": "^5.1.0"
   }
 }
