@@ -1,6 +1,8 @@
 # playing
 [![Build Status](https://travis-ci.org/uiureo/playing.svg)](https://travis-ci.org/uiureo/playing)
 
+work in progress.
+
 Send what you're playing on iTunes to Slack or Hipchat.
 
 ![](https://i.gyazo.com/45f1d6119fbd92349c935e912a7b2309.png)
