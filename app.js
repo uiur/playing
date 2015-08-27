@@ -29,19 +29,17 @@ const App = React.createClass({
     return (
       React.DOM.div({}, [
         React.DOM.header({
-            className: 'header'
-          },
-          [
-            React.DOM.input({
-              type: 'checkbox',
-              checked: this.state.checked,
-              onChange: function () {
-                self.setState({ checked: !self.state.checked })
-              }
-            }),
-            React.DOM.span({}, self.state.checked ? 'enabled' : 'disabled')
-          ]
-        ),
+          className: 'header'
+        }, [
+          React.DOM.input({
+            type: 'checkbox',
+            checked: this.state.checked,
+            onChange: function () {
+              self.setState({ checked: !self.state.checked })
+            }
+          }),
+          React.DOM.span({}, self.state.checked ? 'enabled' : 'disabled')
+        ]),
 
         React.DOM.div({}, [
           React.DOM.h2({}, 'Slack'),
