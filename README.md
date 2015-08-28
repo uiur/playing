@@ -3,7 +3,9 @@
 
 Send what you're playing on iTunes to Slack or Hipchat.
 
-![](https://i.gyazo.com/45f1d6119fbd92349c935e912a7b2309.png)
+![](https://i.gyazo.com/1fb3fdb923d244ed86557f8b4f1066ba.png)
+
+Currently works only in OSX.
 
 ## Installation
 Download the latest version of zip from here and launch it.
