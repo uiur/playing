@@ -1,12 +1,12 @@
 {
   "name": "playing",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Send what you're playing in itunes to Hipchat",
   "main": "main.js",
   "scripts": {
     "test": "standard",
     "start": "node index.js",
-    "build": "electron-packager ./ playing --out build/ --platform=darwin --arch=x64 --version=0.30.6 --overwrite --prune"
+    "build": "electron-packager ./ playing --out build/ --platform=darwin --arch=x64 --version=0.30.6 --overwrite --prune --app-version \"$(node -e \"console.log(require('./package.json').version)\")\""
   },
   "repository": {
     "type": "git",
