@@ -75,17 +75,21 @@ function notify (track, music) {
   }
 
   if (process.env.SLACK_WEBHOOK_URL) {
-    postToSlack(messageForSlack(track, music))
+    postToSlack(messageForSlack(track, music), music, track)
   }
 }
 
-function postToSlack (message) {
+function postToSlack (message, music, track) {
+  music = music || {}
   var webhookUrl = process.env.SLACK_WEBHOOK_URL
+  var username = 'playing ' + track.artist
 
   return fetch(webhookUrl, {
     method: 'post',
     body: JSON.stringify({
-      text: message
+      text: message,
+      username: username,
+      icon_url: music.artworkUrl60
     })
   })
 }
