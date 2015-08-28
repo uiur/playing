@@ -9,3 +9,6 @@ Send what you're playing on iTunes to Slack or Hipchat.
 Download the latest version of zip from here and launch it.
 
 https://github.com/uiureo/playing/releases
+
+## License
+ISC
