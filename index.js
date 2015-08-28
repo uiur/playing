@@ -18,6 +18,10 @@ module.exports = function run () {
       findMusic([ track.name, track.artist, track.album ], {
         country: country
       }).then(function (music) {
+        if (music) return music
+
+        return findMusic([track.name, track.artist], { country: country })
+      }).then(function (music) {
         notify(track, music)
       }).catch(function (err) {
         console.error(err.stack)
