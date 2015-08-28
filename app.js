@@ -41,6 +41,13 @@ const App = React.createClass({
           React.DOM.span({}, self.state.checked ? 'enabled' : 'disabled')
         ]),
 
+        React.DOM.button({
+          className: 'btn btn-default',
+          onClick: function () {
+            ipc.send('terminate')
+          }
+        }, 'Quit'),
+
         React.DOM.div({}, [
           React.DOM.h2({}, 'Slack'),
           React.DOM.input({
@@ -73,6 +80,7 @@ const App = React.createClass({
               window.localStorage.setItem('hipchat.token', e.target.value)
             }
           }),
+
           React.DOM.input({
             className: 'form-control',
             type: 'text',

@@ -14,6 +14,10 @@ mb.on('ready', function ready () {
   ipc.once('data', run)
 })
 
+ipc.on('terminate', function terminate () {
+  mb.app.terminate()
+})
+
 function update (state) {
   process.env.SLACK_WEBHOOK_URL = state.slack
   process.env.HIPCHAT_TOKEN = state.hipchat.token
