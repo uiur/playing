@@ -104,3 +104,22 @@ const App = React.createClass({
 })
 
 React.render(React.createFactory(App)(), document.body)
+
+var remote = require('remote')
+var Menu = remote.require('menu')
+var MenuItem = remote.require('menu-item')
+
+var menu = new Menu()
+menu.append(new MenuItem({
+  label: 'Copy',
+  selector: 'copy:'
+}))
+menu.append(new MenuItem({
+  label: 'Paste',
+  selector: 'paste:'
+}))
+
+window.addEventListener('contextmenu', function (e) {
+  e.preventDefault()
+  menu.popup(remote.getCurrentWindow())
+}, false)
