@@ -22,7 +22,4 @@ ipc.on('terminate', function terminate () {
 
 function update (state) {
   process.env.SLACK_WEBHOOK_URL = state.slack
-  process.env.HIPCHAT_TOKEN = state.hipchat.token
-  process.env.HIPCHAT_ROOM = state.hipchat.room
-  run.disabled = !state.checked
 }

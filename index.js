@@ -47,7 +47,7 @@ function messageForSlack (track, music) {
     return '<' + url + '|' + text + '>'
   }
 
-  var trackStr = trackToString(track)
+  var trackStr = track.name
 
   var url = music && music.trackViewUrl
   var message = url ? link(trackStr, url) : trackStr
