@@ -11,7 +11,6 @@ var fetch = require('isomorphic-fetch')
 module.exports = function run () {
   var prevTrack = {}
   itunes.on('playing', function (track) {
-    if (run.disabled) return
     if (isEqualTrack(track, prevTrack)) return
 
     detectCountry().then(function (country) {
