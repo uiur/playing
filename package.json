@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/uiureo/playing#readme",
   "dependencies": {
+    "electron-template-menu": "^1.0.3",
     "es6-promise": "^3.0.2",
     "hipchatter": "^0.2.0",
     "iconv": "^2.1.10",

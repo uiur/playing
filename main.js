@@ -6,6 +6,8 @@ var run = require('./index.js')
 var mb = menubar({ preloadWindow: true })
 
 mb.on('ready', function ready () {
+  require('electron-template-menu')()
+
   ipc.on('data', function (event, data) {
     console.log(data)
     update(data)
