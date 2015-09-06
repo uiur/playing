@@ -21,7 +21,7 @@ const App = React.createClass({
   },
 
   inputIsValid () {
-    return url.parse(this.state.slack).host === 'hooks.slack.com'
+    return url.parse(this.state.slack || '').host === 'hooks.slack.com'
   },
 
   render () {
