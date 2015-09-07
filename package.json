@@ -6,7 +6,7 @@
   "scripts": {
     "test": "standard",
     "start": "node index.js",
-    "build": "electron-packager ./ playing --out build/ --platform=darwin --arch=x64 --version=0.30.6 --icon=./Icon.icns --overwrite --prune --app-version \"$(node -e \"console.log(require('./package.json').version)\")\""
+    "build": "electron-packager ./ playing --out build/ --platform=darwin --arch=x64 --version=0.30.6 --icon=./Icon.icns --overwrite --prune --app-version \"$(node -pe \"require('./package.json').version\")\""
   },
   "repository": {
     "type": "git",
