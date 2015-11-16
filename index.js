@@ -81,7 +81,8 @@ function notify (track, music) {
 function postToSlack (message, music, track) {
   music = music || {}
   var webhookUrl = process.env.SLACK_WEBHOOK_URL
-  var username = 'playing ' + track.artist
+  var listenerName = process.env.LISTENER_NAME || 'somebody'
+  var username = listenerName + ' playing ' + track.artist
 
   return fetch(webhookUrl, {
     method: 'post',
