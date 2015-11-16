@@ -8,7 +8,8 @@ const url = require('url')
 const App = React.createClass({
   getInitialState () {
     return {
-      slack: window.localStorage.getItem('slack')
+      slackWebhookUrl: window.localStorage.getItem('slackWebhookUrl'),
+      listenerName: window.localStorage.getItem('listenerName')
     }
   },
 
@@ -21,7 +22,7 @@ const App = React.createClass({
   },
 
   inputIsValid () {
-    return url.parse(this.state.slack || '').host === 'hooks.slack.com'
+    return url.parse(this.state.slackWebhookUrl || '').host === 'hooks.slack.com'
   },
 
   render () {
@@ -49,10 +50,21 @@ const App = React.createClass({
             className: 'form-control',
             type: 'text',
             placeholder: 'https://hooks.slack.com/...',
-            value: this.state.slack,
+            value: this.state.slackWebhookUrl,
             onChange: function (e) {
-              self.setState({ slack: e.target.value })
-              window.localStorage.setItem('slack', e.target.value)
+              self.setState({ slackWebhookUrl: e.target.value })
+              window.localStorage.setItem('slackWebhookUrl', e.target.value)
+            }
+          }),
+          React.DOM.label({}, 'Your name'),
+          React.DOM.input({
+            className: 'form-control',
+            type: 'text',
+            placeholder: 'your name',
+            value: this.state.listenerName,
+            onChange: function (e) {
+              self.setState({ listenerName: e.target.value })
+              window.localStorage.setItem('listenerName', e.target.value)
             }
           }),
           this.inputIsValid() && React.DOM.div({ className: 'alert alert-success' }, '✔ Play music on iTunes!')

@@ -21,5 +21,6 @@ ipc.on('terminate', function terminate () {
 })
 
 function update (state) {
-  process.env.SLACK_WEBHOOK_URL = state.slack
+  process.env.SLACK_WEBHOOK_URL = state.slackWebhookUrl
+  process.env.LISTENER_NAME = state.listenerName
 }
