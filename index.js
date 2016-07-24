@@ -8,26 +8,40 @@ var detectCountry = require('./lib/detect-country.js')
 
 var fetch = require('isomorphic-fetch')
 
-module.exports = function run () {
-  var prevTrack = {}
-  itunes.on('playing', function (track) {
-    if (isEqualTrack(track, prevTrack)) return
+module.exports = {
+  listen: function run () {
+    var prevTrack = {}
+    itunes.on('playing', function (track) {
+      if (isEqualTrack(track, prevTrack)) return
 
-    detectCountry().then(function (country) {
-      findMusic([ track.name, track.artist, track.album ], {
-        country: country
-      }).then(function (music) {
-        if (music) return music
+      if (process.env.AUTO_SEND === 'false') {
+        return
+      }
 
-        return findMusic([track.name, track.artist], { country: country })
-      }).then(function (music) {
-        notify(track, music)
-      }).catch(function (err) {
-        console.error(err.stack)
-      })
+      findTrackAndNotify(track)
+      prevTrack = track
+    }) },
+
+  sendNow: function sendNow () {
+    itunes.currentTrack(function (track) {
+      findTrackAndNotify(track)
     })
+  }
+}
 
-    prevTrack = track
+function findTrackAndNotify (track) {
+  detectCountry().then(function (country) {
+    findMusic([ track.name, track.artist, track.album ], {
+      country: country
+    }).then(function (music) {
+      if (music) return music
+
+      return findMusic([track.name, track.artist], { country: country })
+    }).then(function (music) {
+      notify(track, music)
+    }).catch(function (err) {
+      console.error(err.stack)
+    })
   })
 }
 
@@ -68,7 +82,6 @@ function messageForHipchat (track, music) {
 
 function notify (track, music) {
   console.log('🎵  ' + trackToString(track))
-
   if (process.env.HIPCHAT_TOKEN) {
     postToHipchat(messageForHipchat(track, music))
   }

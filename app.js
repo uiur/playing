@@ -1,24 +1,27 @@
 'use strict'
 
 const React = require('react')
-const ipc = require('ipc')
-const shell = require('shell')
+const ReactDOM = require('react-dom')
+const {ipcRenderer} = require('electron')
+const {shell} = require('electron')
 const url = require('url')
 
 const App = React.createClass({
+
   getInitialState () {
     return {
       slackWebhookUrl: window.localStorage.getItem('slackWebhookUrl'),
-      listenerName: window.localStorage.getItem('listenerName')
+      listenerName: window.localStorage.getItem('listenerName'),
+      autoSend: (window.localStorage.getItem('autoSend') === null || window.localStorage.getItem('autoSend') === 'true') // localstorage only knows strings
     }
   },
 
   componentDidMount () {
-    ipc.send('data', this.state)
+    ipcRenderer.send('data', this.state)
   },
 
   componentDidUpdate () {
-    ipc.send('data', this.state)
+    ipcRenderer.send('data', this.state)
   },
 
   inputIsValid () {
@@ -27,6 +30,15 @@ const App = React.createClass({
 
   render () {
     const self = this
+
+    const onlyIfChecked = !this.state.autoSend
+      ? React.DOM.button({
+        className: 'btn btn-default btn-sendnow',
+        onClick: function () {
+          ipcRenderer.send('sendnow')
+        }
+      }, 'Send Now')
+      : null
 
     return (
       React.DOM.main({
@@ -67,13 +79,24 @@ const App = React.createClass({
               window.localStorage.setItem('listenerName', e.target.value)
             }
           }),
+          React.DOM.input({
+            className: 'checkbox',
+            id: 'autosend-checkbox',
+            type: 'checkbox',
+            defaultChecked: self.state.autoSend,
+            onChange: function (e) {
+              self.setState({ autoSend: e.target.checked })
+              window.localStorage.setItem('autoSend', e.target.checked)
+            }
+          }),
+          React.DOM.label({ htmlFor: 'autosend-checkbox' }, 'Send automatically'),
           this.inputIsValid() && React.DOM.div({ className: 'alert alert-success' }, '✔ Play music on iTunes!')
         ]),
-
+        onlyIfChecked,
         React.DOM.button({
           className: 'btn btn-default btn-quit',
           onClick: function () {
-            ipc.send('terminate')
+            ipcRenderer.send('terminate')
           }
         }, 'Quit')
       ])
@@ -81,11 +104,10 @@ const App = React.createClass({
   }
 })
 
-React.render(React.createFactory(App)(), document.body)
+ReactDOM.render(React.createFactory(App)(), document.getElementById('content'))
 
-var remote = require('remote')
-var Menu = remote.require('menu')
-var MenuItem = remote.require('menu-item')
+const {remote} = require('electron')
+const {Menu, MenuItem} = remote
 
 var menu = new Menu()
 menu.append(new MenuItem({
