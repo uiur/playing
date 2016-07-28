@@ -23,9 +23,6 @@ Launch settings menu from the menubar and paste it to the form.
 
 Play your favorite music on iTunes!
 
-## Caveats
-- Apple Music is not supported because of a bug on iTunes
-
 ## Attribution
 The icon is created by Melvin Salas from Noun Project.
 Licensed under Creative Commons.
