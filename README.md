@@ -23,6 +23,15 @@ Launch settings menu from the menubar and paste it to the form.
 
 Play your favorite music on iTunes!
 
+## Release
+
+```sh
+npm install
+npm run build
+```
+
+The build will be in `build/` dir.
+
 ## Attribution
 The icon is created by Melvin Salas from Noun Project.
 Licensed under Creative Commons.
